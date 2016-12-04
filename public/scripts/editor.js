@@ -81,6 +81,9 @@ window.app = new (function () {
     };
 
     _self.sendCode = function (asAdmin) {
+        if (typeof asAdmin !== 'boolean') {
+            asAdmin = false;
+        }
         var code = window.codeEditor.getValue();
         $.ajax({
             type: "POST",
