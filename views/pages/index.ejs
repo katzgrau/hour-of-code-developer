@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+  <script>window.userId = <%= userId %>;</script>
+  <script src="/scripts/editor.js"></script>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+  <div id="editor"></div>
+
+<script type="text/snippet" name="Hello World!">
+// open the javascript console with control+shift+j
+// console.log lets you print things
+console.log('Helloooo world!');
+</script>
+
+<script type="text/snippet" name="Loops">
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration
+// do stuff over and over. In this case, we'll do something 10 times
+var i = 1;
+while (i <= 10) {
+  console.log('did something', i, 'times');
+  // add 1 to the loop count, or else we'll end up doing this forever
+  i = i + 1;
+}
+</script>
+
+<script type="text/snippet" name="If Statements">
+// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else
+var name = 'Kenny';
+
+if (name === 'Kenny') {
+  console.log('Hey bud!');
+} else {
+  console.log('Who are you?');
+}
+</script>
+
+<script type="text/snippet" name="Fibonacci (Iterative)">
+function fibonacci(num){
+  var a = 1, b = 0, temp;
+
+  while (num >= 0){
+    temp = a;
+    a = a + b;
+    b = temp;
+    num--;
+  }
+
+  return b;
+}
+
+console.log(fibonacci(10));
+</script>
+
+
+<script type="text/snippet" name="Fibonacci (Recursive)">
+function fibonacci(num) {
+  if (num <= 1) return 1;
+
+  return fibonacci(num - 1) + fibonacci(num - 2);
+}
+
+console.log(fibonacci(10));
+</script>
+
+<script type="text/snippet" name="Quadratic Equation Root Finder">
+function printQuadraticRoots(a, b, c) {
+    // look closely, it's just the quadratic equation
+    var x1 = (-b + (Math.sqrt(Math.pow(b,2) - 4 * a * c)))/(2 * a);
+    var x2 = (-b - (Math.sqrt(Math.pow(b,2) - 4 * a * c)))/(2 * a);
+
+    // isNaN means 'is not a number' which in this case, means it's imaginary
+    if (isNaN(x1)) {
+        console.log ('x1 is imaginary');
+    } else {
+        console.log ('x1 =', x1);
+    }
+
+    if (isNaN(x2)) {
+        console.log ('x2 is imaginary');
+    } else {
+        console.log ('x2 =', x2);
+    }
+}
+
+function printVertex(a, b) {
+    var v = (-1 * b) / (2 * a);
+    if (v == 0) v = 0; // prevent '-0' in javascript
+    console.log ('The vertex is at x =', v);
+}
+
+function printSlope(a, b, x) {
+    console.log ('The slope at x =', x, 'is', 2 * a * x + b);
+}
+
+// try graphing the equation by setting the roots on
+// https://www.desmos.com/calculator/pfdwlq5qht
+
+// x^2 - 1
+var a = 1, b = 0, c = -1;
+
+printQuadraticRoots(a, b, c);
+printVertex(a, b);
+printSlope(a, b, 2);
+</script>
+
+<script type="text/snippet" name="Maze Solver">
+// full explanation at https://www.youtube.com/watch?v=pDQRc9FH-6I
+function MazeSolver(maze) {
+
+    this.maze = maze;
+
+    this.traverse = function(column, row) {
+        if(this.maze[column][row] == 2) {
+            console.log("We solved the maze at (" + column + ", " + row + ")");
+        } else if(this.maze[column][row] == 1) {
+            console.log("At valid position (" + column + ", " + row + ")");
+            this.maze[column][row] = 9;
+            if(column < this.maze.length - 1) {
+                this.traverse(column + 1, row);
+            }
+            if(row < this.maze[column].length - 1) {
+                this.traverse(column, row + 1);
+            }
+            if(column > 0) {
+                this.traverse(column - 1, row);
+            }
+            if(row > 0) {
+                this.traverse(column, row - 1);
+            }
+        }
+    };
+
+};
+
+var myMaze = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
+    [1, 1, 1, 0, 1, 0, 0, 1, 1, 1],
+    [0, 1, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 1, 0, 1, 1, 1, 0],
+    [0, 1, 0, 0, 1, 0, 1, 0, 1, 0],
+    [0, 0, 0, 0, 1, 1, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 2],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+console.log('Maze solver is about to run with:');
+console.log(myMaze);
+
+ms = new MazeSolver(myMaze);
+ms.traverse(3, 0);
+</script>
+
+<script type="text/snippet" name="Tower of Hanoi">
+// it's a puzzle, see: https://en.wikipedia.org/wiki/Tower_of_Hanoi
+// hard for humans, easy for computers
+var hanoi = function(disc,src,aux,dest) {
+  if (disc > 0) {
+    hanoi(disc - 1, src, dest, aux);
+    console.log('Move disc ', disc, 'from', src, 'to', dest);
+    hanoi(disc - 1, aux, src, dest);
+  }
+};
+
+
+/* Tower setup below
+A
+B
+C  __  __
+*/
+
+hanoi(3,'src','aux','dest');
+</script>
+
+<script type="text/snippet" name="Web Request">
+// the web.get function is a shortcut written specifically for this app
+// it makes a request to the backend of the application, where the real work
+// of pulling the data fromt he url is done. That code is available in index.js
+// of the backend files.
+web.get('http://google.com/');
+</script>
+
+<script type="text/snippet" name="Web Scraping">
+web.get('https://www.wunderground.com/us/nj/middletown', function (response) {
+    // the raw html/code of the page
+    var html = response.data;
+    // a sneaky way of getting the browser to parse the html
+    var tmpDoc = document.implementation.createHTMLDocument('Weather');
+    tmpDoc.body.innerHTML = html;
+    // use a 'query selector' to grab the part of the html document with the weather info
+    // '#curTemp .wx-data' refers to the part of the page that has an element with the
+    // id 'curTemp', like id="curTemp" and a child element with a 'wx-data' class
+    var wx = tmpDoc.querySelector('#curTemp .wx-data').innerText.replace(/\s+/g, ' ');
+    // print out the weather
+    console.log('Weather:', wx);
+});
+</script>
+
+<script type="text/snippet" name="Email">
+// this is a handy shortcut made specifically for this app -
+// right-click on the page and go to 'view source' to see
+// what's really going on
+web.email('katzgrau@gmail.com', 'Hey Kenny', 'I sent this from the hour of code!');
+</script>
+
+<script type="text/snippet" name="Artificial Intelligence (kinda)">
+// modified from: https://github.com/AurelioDeRosa/HTML5-API-demos/blob/master/demos/web-speech-api-demo.html
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+
+var recognizer = new SpeechRecognition();
+
+// We got a bit of text
+recognizer.addEventListener('result', function(event) {
+   for (var i = event.resultIndex; i < event.results.length; i++) {
+      if (event.results[i].isFinal) {
+         console.log(event.results[i][0].transcript + ' (Confidence: ' + event.results[i][0].confidence + ')');
+         processFinalText(event.results[i][0].transcript);
+      } else {
+         console.log(event.results[i][0].transcript);
+      }
+   }
+});
+
+// Listen for errors
+recognizer.addEventListener('error', function(event) {
+   console.log('Recognition error: ' + event.message);
+});
+
+// Watch for the stop event
+recognizer.addEventListener('end', function() {
+   console.log('Recognition ended');
+});
+
+function start () {
+   recognizer.lang = 'en-US';
+   recognizer.continuous = false;
+   recognizer.interimResults = true;
+
+   try {
+      recognizer.start();
+      console.log('Recognition started');
+      setTimeout(function () {
+        recognizer.stop();
+        console.log('Recognition stopped');
+      }, 1000 * 10);
+   } catch(ex) {
+      console.log('Recognition error: ' + ex.message);
+   }
+};
+
+start();
+
+var addressBook = {
+    'kenny': 'katzgrau@gmail.com',
+    'mr. rinella': 'katzgrau@gmail.com', //'rinellap@middletownk12.org',
+    'dr. cartier': 'katzgrau@gmail.com', //'cartierp@middletownk12.org',
+    'dr. george': 'katzgrau@gmail.com' // 'georgew@middletownk12.org'
+};
+
+function processFinalText(string) {
+    var matches = string.match(/send.*email.*to\s+([\.\s\w]+)\s+saying\s+(.*)/i);
+    if (matches) {
+        var name = matches[1], email = addressBook[matches[1].toLowerCase()], message = matches[2];
+
+        if (email) {
+            web.email(email, 'message for ' + name, message);
+        } else {
+            console.warn('Sorry, I dunno anyone by the name of', name);
+        }
+    } else {
+        console.warn('No action for', string);
+    }
+}
+</script>
+
+</body>
+</html>

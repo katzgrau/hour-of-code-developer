@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+  <div class="container-x">
+    <ul class="nav navbar-nav">
+      <li class="active">
+        <a href="/">Developer (#<%= userId %>)</a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-flash"></span> Snippets <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu"></ul>
+      </li>
+      <li class="submissions dropdown admin-only">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-download"></span> Submissions <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu"></ul>
+      </li>
+      <li>
+        <a href="#" onclick='alert("Written for the Hour of Code by\nKenny Katzgrau <katzgrau@gmail.com>\n@katzgrau")'>About</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-right">
+        <a id="run-code" href="javascript:void(0)"><span class="glyphicon glyphicon-play"></span> Run Code</a>
+      </li>
+      <li class="navbar-right user-only">
+        <a id="send-code" href="javascript:void(0)"><span class="glyphicon glyphicon-upload"></span> Send Code</a>
+      </li>
+    </ul>
+  </div>
+</nav>

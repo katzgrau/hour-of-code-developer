@@ -1,0 +1,16 @@
+body {
+  background-color: #3F51B5;
+  position: relative;
+}
+
+nav.navbar {
+  margin-bottom: 0px;
+}
+
+nav .navbar-right {
+  margin-right: 0px;
+}
+
+#editor {
+  display: block;
+}
