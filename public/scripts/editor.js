@@ -8,6 +8,7 @@ jQuery(function($) {
 
     $('#run-code').on('click', app.execute);
     $('#send-code').on('click', app.sendCode);
+    $('#download-code').on('click', app.downloadCode);
     $('#clear-code').on('click', app.clearCode);
     $('#toggle-console').on('click', app.toggleConsole);
 
@@ -32,13 +33,8 @@ jQuery(function($) {
         nav.append(li);
     });
 
-    if (localStorage['hoc-admin'] === 'true') {
-        app.admin(true);
-    }
-
-    if (localStorage['hoc-alt-console'] === 'true') {
-        app.toggleConsole(true);
-    }
+    app.admin(JSON.parse(localStorage['hoc-admin'] || 'false'));
+    app.toggleConsole(JSON.parse(localStorage['hoc-alt-console'] || 'false'));
 
     app.load();
 });
@@ -84,19 +80,33 @@ window.app = new (function () {
         }
     };
 
-    _self.sendCode = function () {
+    _self.sendCode = function (asAdmin) {
         var code = window.codeEditor.getValue();
         $.ajax({
             type: "POST",
-            url: '/submissions',
+            url: asAdmin ? 'admin-code' : '/submissions',
             data: JSON.stringify({code: code}),
             contentType : 'application/json',
             success: function () {
-                console.log('Submission for user #', _userId, 'sent...')
+                if (asAdmin) {
+                    console.log('Admin code sent...');
+                } else {
+                    console.log('Submission for user #', _userId, 'sent...');
+                }
             },
             dataType: 'json'
         });
     };
+
+    _self.downloadCode = function () {
+        jQuery.get('/admin-code', {}, function (data) {
+            if (data.code) {
+                window.codeEditor.setValue(data.code.trim());
+            } else {
+                console.info('No admin code available');
+            }
+        }, 'json');
+    }
 
     _self.toggleConsole = function (forceOn) {
         _altConsole = !_altConsole;
@@ -139,6 +149,18 @@ window.app = new (function () {
     _self.save = function () {
         console.info('Code Saved ...');
         localStorage['hoc-code'] = window.codeEditor.getValue();
+        if (_isAdmin) _self.sendCode(true);
+    };
+
+    _self.timer = function(name) {
+        var start = new Date();
+        return {
+            stop: function() {
+                var end  = new Date();
+                var time = end.getTime() - start.getTime();
+                console.log('Timer:', name, 'finished in', time, 'ms');
+            }
+        }
     };
 
     _self.load = function (tempalte) {
@@ -176,11 +198,11 @@ window.User = new (function () {
 
     var _self = {},
         username = 'myusername',
-        password = 'NjU0MzIx';
+        password = Math.floor((Math.random() * 10000000) + 1).toString();
 
     _self.login = function (user, pass) {
 
-        if (user === username && atob(password) === pass.toString()) {
+        if (user === username && password === pass.toString()) {
             return true;
         } else {
             return false;

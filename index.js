@@ -18,6 +18,7 @@ app.set('view engine', 'ejs');
 
 var users = [];
 var submissions = {};
+var adminCode = '';
 
 app.get('/', function(request, response) {
   var userId = request.cookies.userId;
@@ -72,6 +73,19 @@ app.post('/submissions', function (request, response) {
 
 app.get('/submissions', function (request, response) {
     response.json({submissions: submissions});
+});
+
+app.post('/admin-code', function (request, response) {
+  if (request.body.code) {
+    adminCode = request.body.code;
+    response.json({message: 'code accepted'});
+  } else {
+    response.status(400).json({error: 'Code must be supplied'});
+  }
+});
+
+app.get('/admin-code', function (request, response) {
+    response.json({code: adminCode});
 });
 
 app.listen(app.get('port'), function() {
