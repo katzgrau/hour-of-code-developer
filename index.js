@@ -46,8 +46,8 @@ app.get('/proxy', function (request, response) {
 
 app.get('/email', function (request, response) {
   gmail ({
-    user: atob('aG91cm9mY29kZWFwcEBnbWFpbC5jb20='),
-    pass: atob('aG91cm9mY29kZTEyMzQ1'),
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
     to: request.query.to,
     subject: request.query.subject,
     text: request.query.message
