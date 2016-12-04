@@ -9,7 +9,7 @@ window.console.logLevel = function (level, args) {
             out += args[i] + ' ';
         } else {
             try {
-                out += JSON.stringify(args[i]) + ' ';
+                out += JSON.stringify(args[i], undefined, 2) + ' ';
             } catch (e) {
                 out += args[i].toString() + ' ';
             }
