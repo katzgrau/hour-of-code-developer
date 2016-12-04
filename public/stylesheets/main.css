@@ -29,7 +29,7 @@ nav .navbar-right {
   box-sizing: border-box;
   border-left: 4px solid black;
   padding: 5px;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #console .line {
