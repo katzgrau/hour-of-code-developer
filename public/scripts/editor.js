@@ -9,6 +9,7 @@ jQuery(function($) {
 
     $('#run-code').on('click', app.execute);
     $('#send-code').on('click', app.sendCode);
+    $('#clear-code').on('click', app.clearCode);
 
     // hotkeys (saving)
     var listener = new window.keypress.Listener(document);
@@ -31,6 +32,14 @@ jQuery(function($) {
         nav.append(li);
     });
 
+    if (app.admin()) {
+        jQuery('.user-only').hide();
+        jQuery('.admin-only').show();
+    } else {
+        jQuery('.admin-only').hide();
+        jQuery('.user-only').show();
+    }
+
     app.load();
 });
 
@@ -49,9 +58,14 @@ window.app = new (function () {
             if (_isAdmin) {
                 console.info('Admin mode ...');
                 _self.loadSubmissions();
-            } else {
-
             }
+        }
+    };
+
+    _self.clearCode = function () {
+        if (confirm('Are you sure you want to clear the code?')) {
+            window.codeEditor.setValue('');
+            window.codeEditor.execCommand("gotolineend");
         }
     };
 
@@ -110,7 +124,7 @@ window.app = new (function () {
         window.codeEditor.setValue(localStorage['hoc-code'] || '');
     };
 
-    if (localStorage['hoc-admin']) {
+    if (localStorage['hoc-admin'] === 'true') {
         _self.admin(true);
     }
 
