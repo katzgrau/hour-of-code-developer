@@ -1,39 +1,20 @@
-# node-js-getting-started
+# Hour of Code: Developer Studio
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+An app for running collaborative coding excersizes/demos in javascript. Pretty
+rudimentary, but not bad for about 8 hours/work total.
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+## Get Set Up On Your Own Computer
 
-## Running Locally
+Here are some very technical instructions for installing and running. It's not
+really geared toward totally novice users, but with enough effort, you
+can get it running.
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
-
-```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+1. Install `git` (google: install git)
+1. Install `node` (google: nodejs)
+1. Open a command window (Terminal.app in Mac OSX)
+1. Navigate to your favorite directory (or just do nothing)
+1. Run: `git clone git@github.com:katzgrau/hour-of-code-developer.git`
+1. Run: `cd hour-of-code-developer`
+1. Run: `npm install`
+1. Run: `npm start`
+1. Open a browser to [http://127.0.0.1:5000/](http://127.0.0.1/:5000)
