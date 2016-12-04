@@ -3,6 +3,7 @@
 <head>
   <% include ../partials/header.ejs %>
   <script>window.userId = <%= userId %>;</script>
+  <script src="/scripts/console.js"></script>
   <script src="/scripts/editor.js"></script>
 </head>
 
@@ -11,6 +12,7 @@
   <% include ../partials/nav.ejs %>
 
   <div id="editor"></div>
+  <div id="console"></div>
 
 <script type="text/snippet" name="Hello World!">
 // open the javascript console with control+shift+j
@@ -269,9 +271,9 @@ start();
 
 var addressBook = {
     'kenny': 'katzgrau@gmail.com',
-    'mr. rinella': 'katzgrau@gmail.com', //'rinellap@middletownk12.org',
-    'dr. cartier': 'katzgrau@gmail.com', //'cartierp@middletownk12.org',
-    'dr. george': 'katzgrau@gmail.com' // 'georgew@middletownk12.org'
+    'mr. rinella': 'rinellap@middletownk12.org',
+    'dr. cartier': 'cartierp@middletownk12.org',
+    'dr. george': 'georgew@middletownk12.org'
 };
 
 function processFinalText(string) {

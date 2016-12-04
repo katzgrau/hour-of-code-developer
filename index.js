@@ -4,6 +4,7 @@ var app = express();
 var gmail = require('gmail-send');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var atob = require('atob');
 
 app.set('port', (process.env.PORT || 5000));
 

@@ -1,4 +1,3 @@
-
 jQuery(function($) {
     $('#editor').height($(window).height() - $('nav').height());
 
@@ -10,6 +9,7 @@ jQuery(function($) {
     $('#run-code').on('click', app.execute);
     $('#send-code').on('click', app.sendCode);
     $('#clear-code').on('click', app.clearCode);
+    $('#toggle-console').on('click', app.toggleConsole);
 
     // hotkeys (saving)
     var listener = new window.keypress.Listener(document);
@@ -32,12 +32,12 @@ jQuery(function($) {
         nav.append(li);
     });
 
-    if (app.admin()) {
-        jQuery('.user-only').hide();
-        jQuery('.admin-only').show();
-    } else {
-        jQuery('.admin-only').hide();
-        jQuery('.user-only').show();
+    if (localStorage['hoc-admin'] === 'true') {
+        app.admin(true);
+    }
+
+    if (localStorage['hoc-alt-console'] === 'true') {
+        app.toggleConsole(true);
     }
 
     app.load();
@@ -46,7 +46,7 @@ jQuery(function($) {
 // basic library to make things easy
 window.app = new (function () {
 
-    var _self = {}, _isAdmin = false, _userId = window.userId;
+    var _self = {}, _isAdmin = false, _altConsole = false, _userId = window.userId;
 
     _self.admin = function (isAdmin) {
         if (typeof isAdmin === 'undefined') {
@@ -58,6 +58,11 @@ window.app = new (function () {
             if (_isAdmin) {
                 console.info('Admin mode ...');
                 _self.loadSubmissions();
+                jQuery('.user-only').hide();
+                jQuery('.admin-only').show();
+            } else {
+                jQuery('.admin-only').hide();
+                jQuery('.user-only').show();
             }
         }
     };
@@ -93,6 +98,22 @@ window.app = new (function () {
         });
     };
 
+    _self.toggleConsole = function (forceOn) {
+        _altConsole = !_altConsole;
+
+        if (typeof forceOn == 'boolean' && forceOn) {
+            _altConsole = forceOn;
+        }
+
+        localStorage['hoc-alt-console'] = _altConsole;
+
+        if (_altConsole) {
+            $('#editor').width('60%');
+        } else {
+            $('#editor').width('100%');
+        }
+    };
+
     _self.loadSubmissions = function () {
         if (!_isAdmin) return;
         setInterval (function() {
@@ -123,10 +144,6 @@ window.app = new (function () {
     _self.load = function (tempalte) {
         window.codeEditor.setValue(localStorage['hoc-code'] || '');
     };
-
-    if (localStorage['hoc-admin'] === 'true') {
-        _self.admin(true);
-    }
 
     return _self;
 

@@ -13,4 +13,29 @@ nav .navbar-right {
 
 #editor {
   display: block;
+  z-index: 10;
+}
+
+#console {
+  z-index: 1;
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  right: 0px;
+  margin-top: 50px;
+  width: 40%;
+  background-color: #212121;
+  color: lightgray;
+  box-sizing: border-box;
+  border-left: 4px solid black;
+  padding: 5px;
+  overflow: hidden;
+}
+
+#console .line {
+  font-family: monospace;
+  white-space: pre-wrap;
+  font-size: 12px;
+  padding: 2px 0px;
+  border-bottom: 1px dotted #333;
 }

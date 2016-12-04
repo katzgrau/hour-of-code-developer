@@ -10,6 +10,7 @@
     "start": "node_modules/.bin/supervisor index.js"
   },
   "dependencies": {
+    "atob": "^2.0.3",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "ejs": "2.4.1",
