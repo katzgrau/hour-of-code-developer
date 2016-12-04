@@ -123,7 +123,7 @@ window.app = new (function () {
                 tab.text('Submissions (' + Object.keys(data.submissions).length + ')');
                 jQuery.each(data.submissions, function (userId, submission) {
                     var li = $('<li>');
-                    var a = $('<a href="#"></a>').html('User #' + userId + '(' + submission.time + ')');
+                    var a = $('<a href="#"></a>').html('User #' + userId + ' (' + submission.time + ')');
                     a.on('click', function () {
                         window.codeEditor.setValue("// Submission from user #" + userId + "\n//-------------------------\n\n" + submission.code.trim());
                         window.codeEditor.execCommand("gotolinestart");
