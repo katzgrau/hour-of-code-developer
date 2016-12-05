@@ -20,7 +20,7 @@ var users = [];
 var submissions = {};
 var adminCode = '';
 
-app.get('/', function(request, response) {
+app.get('/', function (request, response) {
   var userId = request.cookies.userId;
   if (!userId) {
     users.push(users.length + 1);
@@ -93,7 +93,7 @@ app.get('/admin-code', function (request, response) {
     response.json({code: adminCode});
 });
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log('Node app is running on port', app.get('port'));
 });
 
