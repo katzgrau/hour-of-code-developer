@@ -97,9 +97,7 @@ window.app = new (function () {
             data: JSON.stringify({code: code}),
             contentType : 'application/json',
             success: function () {
-                if (asAdmin) {
-                    console.log('Admin code sent...');
-                } else {
+                if (!asAdmin) {
                     console.log('Submission for user #', _userId, 'sent...');
                 }
             },
