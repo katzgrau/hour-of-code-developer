@@ -75,6 +75,11 @@ app.get('/submissions', function (request, response) {
     response.json({submissions: submissions});
 });
 
+app.get('/clear-submissions', function (request, response) {
+    submissions = [];
+    response.json({message: 'cleared'});
+});
+
 app.post('/admin-code', function (request, response) {
   if (request.body.code) {
     adminCode = request.body.code;

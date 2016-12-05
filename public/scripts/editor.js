@@ -70,6 +70,12 @@ window.app = new (function () {
         }
     };
 
+    _self.clearSubmissions = function () {
+        jQuery.get('/clear-submissions', {}, function (data) {
+            console.log('Cleared submissions ...');
+        });
+    };
+
     _self.execute = function () {
         _self.save();
         console.info('Code Executing ...');
