@@ -185,7 +185,7 @@ window.web = new (function () {
     _self.get = function (url, cb) {
         console.info('Web request to', url, '...');
         jQuery.get('/proxy', {url: url}, function (data) {
-            console.info('Received data', data);
+            console.info('Received data');
             if (cb) cb (data);
         }, 'json');
     };
